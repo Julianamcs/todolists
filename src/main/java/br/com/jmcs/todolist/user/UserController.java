@@ -1,5 +1,6 @@
 package br.com.jmcs.todolist.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
  @RequestMapping("/users")
 public class UserController {
 
+@Autowired
+private IUserRepository userRepository;
+
 /*
  * String (texto)
  * Integer(int) numero inteiro
@@ -27,8 +31,9 @@ public class UserController {
  */
 
  @PostMapping("/user")
-    public void create(@RequestBody UserModel usermodel){
-        System.out.println(usermodel.getUsername());
+    public UserModel create(@RequestBody UserModel usermodel){
+       var userCreated = this.userRepository.save(usermodel);
+       return userCreated;
     }
 
 }
