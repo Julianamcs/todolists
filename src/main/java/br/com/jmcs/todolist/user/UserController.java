@@ -28,7 +28,7 @@ public class UserController {
 
  @PostMapping("/user")
     public void create(@RequestBody UserModel usermodel){
-        System.out.println(usermodel.name);
+        System.out.println(usermodel.getUsername());
     }
 
 }
