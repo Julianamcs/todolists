@@ -44,7 +44,13 @@ private IUserRepository userRepository;
          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario já existe");
       }
       
-       var userCreated = this.userRepository.save(usermodel);
+      //criptografia de senha
+      var passwordHashred = BCrypt.withDefaults()
+      .hastToString(12, userModel.getPassword().toCharArray());
+
+      userModel.setPassword(passwordHashred);
+
+       var userCreated = this.userRepository.save(userModel);
        return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
